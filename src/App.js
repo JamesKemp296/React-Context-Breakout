@@ -6,16 +6,13 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles/'
 
 // components
 import NavBar from './components/NavBar'
+import Footer from './components/Footer'
 
 // pages
 import Home from './pages/Home'
 import About from './pages/About'
 import Movie from './pages/Movie'
 import Movies from './pages/Movies'
-
-// Context
-import { MovieProvider } from './contexts/MovieContext'
-import { LoadingProvider } from './contexts/LoadingContext'
 
 const theme = createMuiTheme({
   palette: {
@@ -40,20 +37,17 @@ const theme = createMuiTheme({
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
-      <MovieProvider>
-        <LoadingProvider>
-          <CssBaseline />
-          <Router>
-            <NavBar />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/about" component={About} />
-              <Route path="/movies" component={Movies} />
-              <Route path="/movie/:id" component={Movie} />
-            </Switch>
-          </Router>
-        </LoadingProvider>
-      </MovieProvider>
+      <CssBaseline />
+      <Router>
+        <NavBar />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/movies" component={Movies} />
+          <Route path="/movie/:id" component={Movie} />
+        </Switch>
+        <Footer />
+      </Router>
     </MuiThemeProvider>
   )
 }

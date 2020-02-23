@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react'
-import axios from 'axios'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -8,9 +7,6 @@ import InputBase from '@material-ui/core/InputBase'
 import { fade, makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import SearchIcon from '@material-ui/icons/Search'
-
-import { MovieContext } from '../contexts/MovieContext'
-import { LoadingContext } from '../contexts/LoadingContext'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -62,27 +58,8 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function SearchAppBar() {
+const NavBar = () => {
   const classes = useStyles()
-  const [movies, setMovies] = useContext(MovieContext)
-  const [loading, setLoading] = useContext(LoadingContext)
-
-  const [search, setSearch] = useState('')
-
-  const handleInputChange = e => {
-    setSearch(e.target.value)
-  }
-
-  const handleSubmit = async e => {
-    e.preventDefault()
-    setLoading(true)
-    const { data } = await axios.get(
-      `https://api.tvmaze.com/search/shows?q=${search}`
-    )
-    setMovies(data)
-    setSearch('')
-    setLoading(false)
-  }
 
   return (
     <div className={classes.root}>
@@ -97,10 +74,8 @@ export default function SearchAppBar() {
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            <form onSubmit={handleSubmit}>
+            <form>
               <InputBase
-                onChange={handleInputChange}
-                value={search}
                 placeholder="Search…"
                 classes={{
                   root: classes.inputRoot,
@@ -121,3 +96,5 @@ export default function SearchAppBar() {
     </div>
   )
 }
+
+export default NavBar
