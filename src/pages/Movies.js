@@ -11,7 +11,7 @@ import MovieCard from '../components/MovieCard'
 
 const Movies = () => {
   const classes = useGlobalStyles()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const movies = [1, 2, 3, 4, 5]
 
   return (
