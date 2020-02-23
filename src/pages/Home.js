@@ -15,7 +15,6 @@ import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import useGlobalStyles from '../styles/globals'
-import Copyright from '../components/Copyright'
 
 export default function Home() {
   const classes = useGlobalStyles()
@@ -124,21 +123,6 @@ export default function Home() {
           )}
         </Container>
       </main>
-      {/* Footer */}
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="textSecondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
-      </footer>
     </>
   )
 }

@@ -6,6 +6,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles/'
 
 // components
 import NavBar from './components/NavBar'
+import Footer from './components/Footer'
 
 // pages
 import Home from './pages/Home'
@@ -51,6 +52,7 @@ function App() {
               <Route path="/movies" component={Movies} />
               <Route path="/movie/:id" component={Movie} />
             </Switch>
+            <Footer />
           </Router>
         </LoadingProvider>
       </MovieProvider>
