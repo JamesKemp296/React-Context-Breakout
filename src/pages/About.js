@@ -1,8 +1,8 @@
 import React from 'react'
 const About = () => {
   return (
-    <div>
-      <h1>This will be the About page for 1</h1>
+    <div style={{ display: 'grid', placeItems: 'center', height: '80vh' }}>
+      <h1>About Page goes here</h1>
     </div>
   )
 }

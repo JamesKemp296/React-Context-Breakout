@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 
 // MUI stuff
 import Button from '@material-ui/core/Button'
@@ -14,24 +13,14 @@ import Container from '@material-ui/core/Container'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 import useGlobalStyles from '../styles/globals'
+import { MovieContext } from '../contexts/MovieContext'
+import { LoadingContext } from '../contexts/LoadingContext'
 
 const Movies = () => {
   const classes = useGlobalStyles()
-  const [movies, setMovies] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [movies] = useContext(MovieContext)
+  const [loading] = useContext(LoadingContext)
 
-  const getRandomMovies = async type => {
-    setLoading(true)
-    const { data } = await axios.get(
-      `https://api.tvmaze.com/search/shows?q=${type}`
-    )
-    setMovies(data)
-    setLoading(false)
-  }
-
-  useEffect(() => {
-    getRandomMovies('batman')
-  }, [])
   return (
     <Container className={classes.cardGrid} maxWidth="md">
       {loading ? (

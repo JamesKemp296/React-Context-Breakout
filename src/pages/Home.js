@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { MovieContext } from '../contexts/MovieContext'
+import { LoadingContext } from '../contexts/LoadingContext'
 
 // MUI stuff
 import Button from '@material-ui/core/Button'
@@ -18,8 +20,8 @@ import Copyright from '../components/Copyright'
 export default function Home() {
   const classes = useGlobalStyles()
 
-  const [movies, setMovies] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [movies, setMovies] = useContext(MovieContext)
+  const [loading, setLoading] = useContext(LoadingContext)
 
   const getRandomMovies = async type => {
     setLoading(true)
@@ -29,10 +31,6 @@ export default function Home() {
     setMovies(data)
     setLoading(false)
   }
-
-  useEffect(() => {
-    getRandomMovies('batman')
-  }, [])
 
   return (
     <>

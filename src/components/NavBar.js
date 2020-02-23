@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -7,6 +8,9 @@ import InputBase from '@material-ui/core/InputBase'
 import { fade, makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import SearchIcon from '@material-ui/icons/Search'
+
+import { MovieContext } from '../contexts/MovieContext'
+import { LoadingContext } from '../contexts/LoadingContext'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -56,13 +60,29 @@ const useStyles = makeStyles(theme => ({
       }
     }
   }
-  // navbar: {
-  //   maxWidth: '1200px'
-  // }
 }))
 
 export default function SearchAppBar() {
   const classes = useStyles()
+  const [movies, setMovies] = useContext(MovieContext)
+  const [loading, setLoading] = useContext(LoadingContext)
+
+  const [search, setSearch] = useState('')
+
+  const handleInputChange = e => {
+    setSearch(e.target.value)
+  }
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    setLoading(true)
+    const { data } = await axios.get(
+      `https://api.tvmaze.com/search/shows?q=${search}`
+    )
+    setMovies(data)
+    setSearch('')
+    setLoading(false)
+  }
 
   return (
     <div className={classes.root}>
@@ -77,23 +97,25 @@ export default function SearchAppBar() {
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
+            <form onSubmit={handleSubmit}>
+              <InputBase
+                onChange={handleInputChange}
+                value={search}
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </form>
           </div>
-          <div>
-            <Link to="/about">
-              <Button color="inherit">About</Button>
-            </Link>
-            <Link to="/movies">
-              <Button color="inherit">Movies</Button>
-            </Link>
-          </div>
+          <Link to="/about">
+            <Button color="inherit">About</Button>
+          </Link>
+          <Link to="/movies">
+            <Button color="inherit">Movies</Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>
